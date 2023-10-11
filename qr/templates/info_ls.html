@@ -1,0 +1,97 @@
+<!--
+- 作者: 李展旗
+- Date: 2023-10-11 15:37:04
+- 文件最后编辑者: 李展旗
+- LastEditTime: 2023-10-11 20:40:58
+-->
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}
+      访问记录
+{% endblock title %}
+
+{% block content %}
+
+<div class='container'>
+    <div class='' style="float:right;margin-top:-55px;">
+        <form action="" method="get">
+            <div class="input-group mb-3">
+                <input type="text" name='q' class="form-control" value="{{value}}" placeholder="标题检索" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <input type="text" name='page' class="form-control " value="{{page}}" placeholder="页码" aria-label="Recipient's username" aria-describedby="button-addon2" style="display:none">
+                <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
+                    <img src="{% static 'bootstrap-icons/search.svg' %}"></img>
+                </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style='margin:10px 0px;'>
+      
+      <a class='btn btn-success' href="/info/add/">
+        <img src="{% static 'bootstrap-icons/plus-circle-dotted.svg' %}" alt="Bootstrap">
+        新建信息
+      </a>
+    </div>
+    
+    <div class="bs-example" data-example-id="table-within-panel">
+      <div class="panel panel-default">  
+  
+        <!-- Table -->
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th colspan="6"><img src="{% static 'bootstrap-icons/card-list.svg' %}" alt="Bootstrap"> 部门列表</th>
+            </tr>
+            <tr>
+  
+              <th scope="col">ID</th>
+              <th scope="col">标题</th>
+              <th scope="col">文字信息</th>
+              <th scope="col">url</th>
+              <th scope="col">类型</th>
+              <th scope="col">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in  queryset%}
+              <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.title}}</td>
+                <td>{{i.info_text}}</td>
+                <td>{{i.url}}</td>
+                <td>{{i.get_info_type_display}}</td>
+                <td>
+                  <a href="/info/{{i.id}}/edit" class='btn btn-info btn-sm'>编辑</a>
+                  <a href="/info/{{i.id}}/del" class='btn btn-danger btn-sm'>删除</a>
+                  <a href="/info/{{i.id}}/qr" class='btn btn-warning btn-sm'>二维码生成</a>
+                </td>
+              </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <nav aria-label="...">
+        <ul class="pagination">
+
+          {{ html_data }}
+          <div style="float:right;">
+            <form action="" method="get">
+                <div class="input-group mb-3">
+                  <input type="text" name='q' class="form-control" value="{{value}}" placeholder="标题检索" aria-label="Recipient's username" aria-describedby="button-addon2" style="display:none">
+                    <input type="text" name='page' class="form-control " value="{{page}}" placeholder="页码" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
+                        跳转
+                    </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        </ul>
+      </nav>
+</div>
+
+{% endblock  %}

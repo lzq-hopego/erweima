@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class='container' style='margin-top:20px;'>
+  <form method='post' novalidate>
+    {% csrf_token %}
+    {% for item in  form%}
+      <div class="form-group row">
+        <label for="inputPassword" class="col-sm-2 col-form-label">{{item.label}}</label>
+        <div class="col-sm-10">
+          {{item}}
+        </div>
+        <span style='color:red;'>{{item.errors.0}}</span>
+      </div>
+    {% endfor %}
+
+
+      <div style='margin-top:20px;'>
+        <button type="submit" class="btn btn-success">
+          <img src="{% static 'bootstrap-icons/plus-circle-dotted.svg' %}" alt="Bootstrap">
+            添加
+        </button>
+      </div>
+      
+    </form>
+    
+</div>
+
+{% endblock  %}
